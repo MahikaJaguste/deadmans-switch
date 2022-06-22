@@ -23,16 +23,14 @@ contract DeadmanSwitch is Ownable {
     }
 
     function updatePresetAddress(address _newPresetAddress) public onlyOwner {
+        require(_newPresetAddress != address(0) && _newPresetAddress != msg.sender, "Invalid preset address");
         presetAddress = payable(_newPresetAddress);
         latestBlockWhenCalled = block.number;
     }
 
     function transferFunds() public {
-
-        if ((address(this).balance > 0) && ((block.number - latestBlockWhenCalled) > 10)) {
-            latestBlockWhenCalled = block.number;
-            (bool success, ) = presetAddress.call{value:(address(this).balance)}("");
-            require(success, "Transfer of funds failed!");
-        }
+        require((address(this).balance > 0) && ((block.number - latestBlockWhenCalled) > 10));
+        (bool success, ) = presetAddress.call{value:(address(this).balance)}("");
+        require(success, "Transfer of funds failed!");
     }
 }
