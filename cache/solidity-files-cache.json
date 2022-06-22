@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "D:\\Files\\Blockchain\\Polygon-Fellowship\\Assignment-2\\deadmans-switch\\contracts\\DeadmanSwitch.sol": {
-      "lastModificationDate": 1655906480602,
-      "contentHash": "143c9999eab6e6e8f825e8c0d2bece12",
+      "lastModificationDate": 1655907933651,
+      "contentHash": "bc88e9cdb9bf18427e7124a9ab6ec158",
       "sourceName": "contracts/DeadmanSwitch.sol",
       "solcConfig": {
         "version": "0.8.9",

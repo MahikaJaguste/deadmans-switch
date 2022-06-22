@@ -8,8 +8,12 @@ contract DeadmanSwitch is Ownable {
     address payable public presetAddress;
     uint public latestBlockWhenCalled;
 
-    constructor(address _presetAddress) {
+    modifier validPreset(address _presetAddress) {
         require(_presetAddress != address(0) && _presetAddress != msg.sender, "Invalid preset address");
+        _;
+    } 
+
+    constructor(address _presetAddress) validPreset(_presetAddress) {
         presetAddress = payable(_presetAddress);
         latestBlockWhenCalled = block.number;
     }
@@ -22,8 +26,7 @@ contract DeadmanSwitch is Ownable {
         latestBlockWhenCalled = block.number;
     }
 
-    function updatePresetAddress(address _newPresetAddress) public onlyOwner {
-        require(_newPresetAddress != address(0) && _newPresetAddress != msg.sender, "Invalid preset address");
+    function updatePresetAddress(address _newPresetAddress) public onlyOwner validPreset(_newPresetAddress) {
         presetAddress = payable(_newPresetAddress);
         latestBlockWhenCalled = block.number;
     }
